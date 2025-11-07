@@ -21,3 +21,5 @@ resource newMG 'Microsoft.Management/managementGroups@2021-04-01' = {
     }
   }
 }
+
+output MgName string = newMG.name

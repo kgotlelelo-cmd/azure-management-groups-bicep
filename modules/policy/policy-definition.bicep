@@ -12,8 +12,16 @@ resource policyDef 'Microsoft.Authorization/policyDefinitions@2023-04-01' = {
     parameters: {}
     policyRule: {
       if: {
-        field: 'tags[${tagName}]'
-        equals: ''
+        anyOf: [
+          {
+            field: format('tags[{0}]', tagName)
+            equals: ''
+          }
+          {
+            field: format('tags[{0}]', tagName)
+            exists: false
+          }
+        ]
       }
       then: {
         effect: 'deny'
